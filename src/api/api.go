@@ -14,10 +14,22 @@ func InitServer() {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
-	v1 := r.Group("/api/v1/")
+	api := r.Group("/api")
+
+	v1 := api.Group("/v1")
 	{
 		HealthCheck := v1.Group("/health-check")
 		routers.HealthCheckRoute(HealthCheck)
+
+		Test := v1.Group("/test")
+		routers.TestRouter(Test)
+
 	}
+	v2 := api.Group("/v2")
+	{
+		HealthCheck := v2.Group("/health-check")
+		routers.HealthCheckRoute(HealthCheck)
+	}
+
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }
