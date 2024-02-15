@@ -17,7 +17,9 @@ func InitServer() {
 
 	//gin.New() is a function that returns a new Gin Engine instance.
 	r := gin.New()
+
 	r.Use(gin.Logger(), gin.Recovery() , middlewares.LimitByRequest())
+	r.Use(middlewares.Cors(cfg))
 
 	//custom validation add to gin
 	val, ok := binding.Validator.Engine().(*validator.Validate)
