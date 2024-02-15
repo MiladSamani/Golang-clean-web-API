@@ -1,6 +1,6 @@
 module github.com/MiladSamani/Golang-clean-web-API
 
-go 1.21.5
+go 1.22
 
 require (
 	github.com/didip/tollbooth/v7 v7.0.1
