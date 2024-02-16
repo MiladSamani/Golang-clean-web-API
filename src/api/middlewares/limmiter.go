@@ -3,21 +3,21 @@ package middlewares
 import (
 	"net/http"
 
+	"github.com/MiladSamani/Golang-clean-web-API/api/helper"
 	"github.com/didip/tollbooth/v7"
 	"github.com/gin-gonic/gin"
 )
 
 func LimitByRequest() gin.HandlerFunc {
 	lmt := tollbooth.NewLimiter(1, nil)
-	return func(ctx *gin.Context) {
-		err := tollbooth.LimitByRequest(lmt, ctx.Writer, ctx.Request)
+	return func(c *gin.Context) {
+		err := tollbooth.LimitByRequest(lmt, c.Writer, c.Request)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{
-				"error": "Too many requests",
-			})
+			c.AbortWithStatusJSON(http.StatusTooManyRequests,
+				helper.GenerateBaseResponseWithError(nil, false, -100, err))
 			return
 		} else {
-			ctx.Next()
+			c.Next()
 		}
 	}
 }
