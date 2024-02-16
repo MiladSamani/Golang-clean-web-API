@@ -23,6 +23,13 @@ type ServerConfig struct {
 	runMode string
 }
 
+type LoggerConfig struct {
+	FilePath string
+	Encoding string
+	Level    string
+	Logger   string
+}
+
 type PostgresConfig struct {
 	Host            string
 	Port            string
@@ -60,13 +67,6 @@ type PasswordConfig struct {
 type CorsConfig struct {
 	AllowOrigins string
 }
-
-type LoggerConfig struct {
-	FilePath string
-	Encoding string
-	Level    string
-}
-
 
 func GetConfig() *Config {
 	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
